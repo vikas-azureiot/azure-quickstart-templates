@@ -137,7 +137,7 @@
   "resources": [
     {
       "copy": {
-        "name": "lbvm1",
+        "name": "project_vm_1_networkInterface",
         "count": "[length(range(0, 3))]"
       },
       "type": "Microsoft.Network/networkInterfaces",
@@ -176,7 +176,7 @@
     },
     {
       "copy": {
-        "name": "lbvm2",
+        "name": "lbvm1",
         "count": "[length(range(0, 3))]"
       },
       "type": "Microsoft.Compute/virtualMachines/extensions",
@@ -193,12 +193,12 @@
         }
       },
       "dependsOn": [
-        "project_vm_1"
+        "lbvm2"
       ]
     },
     {
       "copy": {
-        "name": "project_vm_1",
+        "name": "lbvm2",
         "count": "[length(range(1, 3))]"
       },
       "type": "Microsoft.Compute/virtualMachines",
@@ -280,7 +280,7 @@
         }
       },
       "dependsOn": [
-        "project_vm_1"
+        "lbvm2"
       ]
     },
     {
