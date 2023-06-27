@@ -137,7 +137,7 @@
   "resources": [
     {
       "copy": {
-        "name": "project_vm_1_networkInterface",
+        "name": "lbvm1",
         "count": "[length(range(0, 3))]"
       },
       "type": "Microsoft.Network/networkInterfaces",
@@ -176,7 +176,7 @@
     },
     {
       "copy": {
-        "name": "project_vm_1_InstallWebServer",
+        "name": "lbvm2",
         "count": "[length(range(0, 3))]"
       },
       "type": "Microsoft.Compute/virtualMachines/extensions",
@@ -250,7 +250,7 @@
     },
     {
       "copy": {
-        "name": "projectName_vm_1_3_GuestAttestation",
+        "name": "lbvm3",
         "count": "[length(range(1, 3))]"
       },
       "condition": "[and(equals(parameters('securityType'), 'TrustedLaunch'), and(equals(variables('securityProfileJson').uefiSettings.secureBootEnabled, true()), equals(variables('securityProfileJson').uefiSettings.vTpmEnabled, true())))]",
