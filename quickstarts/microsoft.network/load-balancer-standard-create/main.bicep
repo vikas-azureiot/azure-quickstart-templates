@@ -125,7 +125,7 @@ resource project_vm_1_networkInterface 'Microsoft.Network/networkInterfaces@2021
   ]
 }]
 
-resource project_vm_1_InstallWebServer 'Microsoft.Compute/virtualMachines/extensions@2021-11-01' = [for i in range(0, 3): {
+resource lbvm1 'Microsoft.Compute/virtualMachines/extensions@2021-11-01' = [for i in range(0, 3): {
   name: '${projectName}-vm${(i + 1)}/InstallWebServer'
   location: location
   properties: {
@@ -138,11 +138,11 @@ resource project_vm_1_InstallWebServer 'Microsoft.Compute/virtualMachines/extens
     }
   }
   dependsOn: [
-    project_vm_1
+    lbvm2
   ]
 }]
 
-resource project_vm_1 'Microsoft.Compute/virtualMachines@2021-11-01' = [for i in range(1, 3): {
+resource lbvm2 'Microsoft.Compute/virtualMachines@2021-11-01' = [for i in range(1, 3): {
   name: '${projectName}-vm${i}'
   location: location
   zones: [
@@ -189,7 +189,7 @@ resource project_vm_1 'Microsoft.Compute/virtualMachines@2021-11-01' = [for i in
   ]
 }]
 
-resource projectName_vm_1_3_GuestAttestation 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = [for i in range(1, 3): if ((securityType == 'TrustedLaunch') && ((securityProfileJson.uefiSettings.secureBootEnabled == true) && (securityProfileJson.uefiSettings.vTpmEnabled == true))) {
+resource lbvm3 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = [for i in range(1, 3): if ((securityType == 'TrustedLaunch') && ((securityProfileJson.uefiSettings.secureBootEnabled == true) && (securityProfileJson.uefiSettings.vTpmEnabled == true))) {
   name: '${projectName}-vm${i}/GuestAttestation'
   location: location
   properties: {
@@ -214,7 +214,7 @@ resource projectName_vm_1_3_GuestAttestation 'Microsoft.Compute/virtualMachines/
     }
   }
   dependsOn: [
-    project_vm_1
+    lbvm2
   ]
 }]
 
